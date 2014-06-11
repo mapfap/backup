@@ -53,7 +53,9 @@
             <div class="topic">
               <h3><%= topic.name %></h3>
               <% category.projects.each do |project| %>
-                <label class='checkbox'><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="checkbox"> <%= project.name %></label>
+                <label class='checkbox'>
+                  <input name="v[<%= topic.id %>][]" value="<%= project.id %>" type="checkbox"> <%= project.name %>
+                </label>
                 <br>
               <% end %>
             </div>
@@ -311,8 +313,13 @@
 
     $(".checkbox").click(function () {
       $(this).toggleClass('checked');
+      $(this).find('input').prop('checked', $(this).hasClass('checked'));
       return false;
     });
+
+    $(".checkbox").each(function() {
+      $(this).toggleClass('checked', $(this).find('input').prop('checked'));
+    })
 
     $(window).resize(function () {
       setLogoContainerSize();

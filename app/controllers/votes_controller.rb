@@ -24,6 +24,7 @@ class VotesController < ApplicationController
   # POST /votes
   # POST /votes.json
   def create
+    # return render json: params
     @vote = Vote.new(vote_params)
     # unless Topic.all.all? { |topic| params[:v].include? topic.id.to_s }
     #   render text: 'Please select all'
@@ -31,12 +32,36 @@ class VotesController < ApplicationController
     # end
     respond_to do |format|
       if @vote.save
-        Topic.all.each do |topic|
-          project_id = params[:v][topic.id.to_s]
-          topic_id = topic.id
-          vote_id = @vote.id 
-          VoteItem.create(topic_id: topic_id, vote_id: vote_id, project_id: project_id.to_i)
+        # puts "---------------------------------------"
+        # puts "---------------------------------------"
+        # p params
+        # puts "---------------------------------------"
+        # puts "---------------------------------------"
+        # Topic.all.each do |topic|
+          
+          # project_id = params[:v][topic.id.to_s]
+          # topic_id = topic.id
+          # vote_id = @vote.id 
+
+          # VoteItem.create(topic_id: topic_id, vote_id: vote_id, project_id: project_id.to_i)
+        # end
+        # puts "---------------------------------------"
+        # puts "---------------------------------------"
+
+        pv = params[:v]
+        pv.each do |k, v|
+          project_id = k
+          pv[k].each do |topic_id|
+            vote_id = @vote.id 
+            VoteItem.create(topic_id: topic_id, vote_id: vote_id, project_id: project_id.to_i)
+          end
         end
+        # p v
+        # puts "---------------------------------------"
+        # puts "---------------------------------------"
+
+
+
         format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
         format.json { render :show, status: :created, location: @vote }
       else

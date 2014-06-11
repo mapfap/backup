@@ -3,6 +3,10 @@
 <p>
   <strong>Student:</strong>
   <%= @vote.student_id %>
+
+  <%=  @vote.vote_items.each do |vote_item| %>
+  	<%= vote_item %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_vote_path(@vote) %> |
