@@ -25,10 +25,10 @@ class VotesController < ApplicationController
   # POST /votes.json
   def create
     @vote = Vote.new(vote_params)
-    unless Topic.all.all? { |topic| params[:v].include? topic.id.to_s }
-      render text: 'Please select all'
-      return
-    end
+    # unless Topic.all.all? { |topic| params[:v].include? topic.id.to_s }
+    #   render text: 'Please select all'
+    #   return
+    # end
     respond_to do |format|
       if @vote.save
         Topic.all.each do |topic|

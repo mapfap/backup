@@ -3,13 +3,10 @@
 
 <div class='logo-container'>
   <img class='logo' src="logo.jpg">
-  <div class='heading'>
-    <span class="fa-stack next">
-      <i class="fa fa-circle-thin fa-stack-2x"></i>
-      <i class="fa fa-chevron-down fa-stack-1x"></i>
-    </span>
-    <h1>Exceed Vote</h1>
-  </div>
+  <span class="next fa-stack">
+    <i class="fa fa-circle-thin fa-stack-2x"></i>
+    <i class="fa fa-chevron-down fa-stack-1x"></i>
+  </span>
 </div>
 
 <%= form_for(@vote) do |f| %>
@@ -23,10 +20,13 @@
       </ul>
     </div>
   <% end %>
-  <div class="wrapper">
-    <div class="text-field">
-    <%= f.text_field :student_id, :placeholder => "Student ID", :auto_complete => false %>
-      <i class="numclear fa fa-times-circle"></i>
+  <h1>Exceed Vote</h1>
+  <div class="wrapper text-center">
+    <div class='text-field-wrapper'>
+      <div class="text-field">
+        <%= f.text_field :student_id, :placeholder => "Student ID", autocomplete:  false %>
+        <i class="numclear fa fa-times-circle"></i>
+      </div>
     </div>
 
     <div class="numpad">
@@ -47,13 +47,13 @@
   <div class="wrapper">
     <div class="field">
       <% Category.all.each do |category| %>
-        <h2><%= category.name %> </h2>
+        <h1 class="category"><%= category.name %> </h1>
         <div class="topic-container">
         <% category.topics.each do |topic| %>
             <div class="topic">
               <h3><%= topic.name %></h3>
               <% category.projects.each do |project| %>
-                <label><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="radio"> <%= project.name %></label>
+                <label class='checkbox'><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="checkbox"> <%= project.name %></label>
                 <br>
               <% end %>
             </div>
@@ -65,8 +65,6 @@
       </div>
     </div>
   </div>
-
-
 
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
@@ -89,13 +87,40 @@
   input[type="text"] {
     font-family: inherit;
     border: none;
-    padding: 7px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
+  }
+
+  label.checkbox {
+    position: relative;
+    display: block;
+    padding-left: 40px;
+    cursor: pointer;
+  }
+
+  label.checkbox::after {
+    content: "\f0c8";
+    position: absolute;
+    top: 0; left: 0;
+    font-size: 26px;
+    font-family: FontAwesome;
+  }
+
+  label.checkbox.checked::after {
+    content: "\f14a";
+    position: absolute;
+    top: 0; left: 0;
+    font-family: FontAwesome;
+    color: red;
+  }
+
+  input[type="checkbox"] {
+    position: absolute;
+    left: -9999px;
   }
 
   .logo-container {
     position: relative;
-    text-align: center;
   }
 
   .logo {
@@ -105,24 +130,18 @@
     margin: auto;
   }
 
-  .heading {
+  .next {
     position: absolute;
-    bottom: 20px;
     width: 100%;
-    text-align: center;
-    font-size: 1.6em;
-  }
-
-  .heading > .next {
-    cursor: pointer;
-    width: 50px;
-    -webkit-animation: myfirst 1s infinite ease; /* Chrome, Safari, Opera */
-    animation: myfirst 1s infinite ease;
-    position: relative;
+    display: inline-block;
+    bottom: 20px;
+    font-size: 2em;
+    -webkit-animation: down 1s infinite ease;
+    animation: down 1s infinite ease;
   }
 
   .topic-container {
-    margin: 20px;
+    margin: 50px;
     display: block;
     position: relative;
   }
@@ -139,6 +158,9 @@
   .wrapper {
     position: relative;
     width: 100%;
+  }
+
+  .text-center {
     text-align: center;
   }
 
@@ -146,19 +168,28 @@
     margin: 60px;
     display: block;
     position: relative;
+    font-size: 1.5em;
+    line-height: 22px;
+  }
+
+  .text-field-wrapper {
+    position: relative;
+    display: block;
+    margin: 60px 0;
+    text-align: center;
   }
 
   .text-field {
     position: relative;
-    display: block;
+    display: inline-block;
+    font-size: 1.2em;
     width: 500px;
-    margin: 60px auto;
-    font-size: 1.5em;
   }
 
   .text-field > input {
-    width: 100%;
     font-size: inherit;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .numpad {
@@ -170,48 +201,72 @@
     padding: 20px 0px;
     width: 100%;
     margin-bottom: 80px;
+    font-size: 2em;
   }
 
   .numcell {
-    margin: 4px;
+    margin: 0.5%;
     display: inline-block;
-    width: 120px;
-    height: 120px;
+    width: 8%;
+    padding: 3% 0;
     background: #5c5b5e;
-    line-height: 120px;
-    font-size: 3.2em;
     transition: all 0.1s ease-in;
     cursor: pointer;
     border-radius: 5px;
+    box-sizing: border-box;
   }
 
   .numclear {
     position: absolute;
-    top: 6px; right: -20px;
+    top: 9px; right: 5px;
     font-size: 1.8em;
   }
 
   .numcell.double {
-    width: 250px;
+    width: 18%;
   }
 
   ::-webkit-scrollbar {
     width: 0px !important;
   }
 
-  /* Chrome, Safari, Opera */
-  @-webkit-keyframes myfirst {
-    0% {top: 0px;}
-    50% {top: 6px;}
-    100% {top: 0px;}
+  @-webkit-keyframes down {
+    0% {bottom: 20px;}
+    50% {bottom: 25px;}
+    100% {bottom: 20px;}
   }
 
-  /* Standard syntax */
-  @keyframes myfirst {
-    0% {top: 0px;}
-    50% {top: 6px;}
-    100% {top: 0px;}
+  @keyframes down {
+    0% {bottom: 20px;}
+    50% {bottom: 25px;}
+    100% {bottom: 20px;}
   }
+
+  .category {
+    font-size: 50px;
+  }
+
+  @media all and (max-width: 768px) {
+    .logo {
+      width: 100%;
+    }
+
+    .heading {
+      font-size: 1.2em;
+    }
+
+    .text-field {
+      position: relative;
+      display: inline-block;
+      font-size: 1.2em;
+      width: 300px;
+    }
+
+    .numpad {
+      display: none;
+    }
+  }
+
 </style>
 
 <script src="js/bootstrap.min.js"></script>
@@ -221,14 +276,6 @@
     $('.logo-container').height($(window).height()); 
   }
 
-  $(document.body).on('touchstart', function (e) {
-    return false;
-  });
-
-  $(document.body).on('touchend', function (e) {
-    return false;
-  });
-
   $(document).ready(function () {
 
     FastClick.attach(document.body);
@@ -236,7 +283,7 @@
     setLogoContainerSize();
 
     $('.logo-container').click(function () {
-      $('html, body').animate({ scrollTop: $(window).height() - 230}, '200');
+      $('html, body').animate({ scrollTop: $(window).height()}, '200');
     });
 
     $(".numcell").click(function () {
@@ -250,7 +297,7 @@
       var number = $(this).html().trim();
 
       if (number == "Next") {
-        $('html, body').animate({ scrollTop: $(window).height() + 730}, '200');
+        $('html, body').animate({ scrollTop: $(window).height() * 2}, '200');
       } else {
         $('#vote_student_id').val( function(index, val) {
           return val + number;
@@ -261,10 +308,14 @@
     $(".numclear").click(function () {
       $("#vote_student_id").val("");
     });
-  });
 
-  $(window).resize(function () {
-    setLogoContainerSize();
-  });
+    $(".checkbox").click(function () {
+      $(this).toggleClass('checked');
+      return false;
+    });
 
+    $(window).resize(function () {
+      setLogoContainerSize();
+    });
+  });
 </script>
