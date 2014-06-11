@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 <div class='logo-container'>
@@ -20,23 +21,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.text_field :student_id, :placeholder => "Student ID", :class => "text-field", :auto_complete => false %>
-    <% Category.all.each do |category| %>
-      <h2><%= category.name %> </h2>
-      <% category.topics.each do |topic |%>
-        <div class="topic">
-          <h3><%= topic.name %></h3>
-          <% category.projects.each do |project|%>
-            <label><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="radio"> <%= project.name %></label>
-            <br>
-          <% end %>
-        </div>
+  <div class="wrapper">
+    <div class="field">
+      <%= f.text_field :student_id, :placeholder => "Student ID", :class => "text-field", :auto_complete => false %>
+      <% Category.all.each do |category| %>
+        <h2><%= category.name %> </h2>
+        <div class="topic-container">
+        <% category.topics.each do |topic| %>
+            <div class="topic">
+              <h3><%= topic.name %></h3>
+              <% category.projects.each do |project| %>
+                <label><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="radio"> <%= project.name %></label>
+                <br>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
       <% end %>
-    <% end %>
-    <div class="actions">
-      <%= f.submit %>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
     </div>
+  </div>
+
+  <div class="numpad">
+    <div class="numcell"> 0 </div>
+    <div class="numcell"> 1 </div>
+    <div class="numcell"> 2 </div>
+    <div class="numcell"> 3 </div>
+    <div class="numcell"> 4 </div>
+    <div class="numcell"> 5 </div>
+    <div class="numcell"> 6 </div>
+    <div class="numcell"> 7 </div>
+    <div class="numcell"> 8 </div>
+    <div class="numcell"> 9 </div>
+    <div class="numcell"> C </div>\
   </div>
 
 
@@ -47,6 +66,8 @@
     background: rgb(211, 249, 166);
     color: #1c5a29;
     font-family: 'Oxygen', sans-serif;
+    margin: 0px;
+    overflow-style: none;
   }
 
   h1 {
@@ -89,18 +110,30 @@
     position: relative;
   }
 
+  .topic-container {
+    margin: 20px;
+    display: block;
+    position: relative;
+  }
+
   .topic {
-    /*background: #2eeb29;*/
+    width: 30%;
+    /*background: rgba(255, 255, 255, 0.5);*/
     display: inline-block;
     border-radius: 10px;
     border: 1px dashed #bcbcbc;
     padding: 10px;
   }
 
-  .field {
-    padding: 20px;
+  .wrapper {
     position: relative;
     width: 100%;
+  }
+
+  .field {
+    margin: 60px;
+    display: block;
+    position: relative;
   }
 
   .text-field {
@@ -108,6 +141,23 @@
     width: 500px;
     margin: 100px auto;
     font-size: 1.5em;
+  }
+
+  .numpad {
+    display: none;
+    background-color: red;
+    width: 100px;
+
+  }
+
+  .numcell {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px !important;
   }
 
   /* Chrome, Safari, Opera */
@@ -134,9 +184,30 @@
 
   $(document).ready(function () {
     setLogoContainerSize();
+
+    $('#vote_student_id').focus(function () { 
+      // alert();
+      $(".numpad").slideDown();
+
+    });
+
     $('.logo-container').click(function () {
       $('html, body').animate({ scrollTop: $(window).height() }, '200');
     });
+
+    $('.logo-container').on("touchstart", function () {
+      $('html, body').animate({ scrollTop: $(window).height() }, '200');
+      // alert("dfvfdv");
+    });
+
+    $(".numcell").click(function () {
+      var number = $(this).html().trim();
+      $('#vote_student_id').val( function(index, val) {
+        return val + number;
+      });
+    });
+
+
   });
 
   $(window).resize(function () {
