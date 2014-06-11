@@ -2,7 +2,7 @@
 <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 <div class='wrapper header'>
-  <img class='header-logo' src="logo.jpg">
+  <img class='header-logo' src="/logo.jpg">
   <span class="header-next fa-stack">
     <i class="fa fa-circle-thin fa-stack-2x"></i>
     <i class="fa fa-chevron-down fa-stack-1x"></i>
@@ -25,7 +25,7 @@
     <div class='text-field-wrapper'>
       <div class="text-field">
         <%= f.text_field :student_id, :placeholder => "Student ID", autocomplete:  false %>
-        <i class="numclear fa fa-times-circle"></i>
+        <i class="text-field-clear fa fa-times-circle"></i>
       </div>
     </div>
 
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="wrapper vote">
+  <div class="vote">
     <div class="field">
       <% Category.all.each do |category| %>
         <h1 class="category"><%= category.name %> </h1>
@@ -63,11 +63,14 @@
       </div>
       <% end %>
       <div class="actions">
-        <%= f.submit %>
+        <input type="submit" value="Submit Vote" name="commit">
       </div>
     </div>
   </div>
 <% end %>
+
+<br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 <style>
   body {
@@ -89,11 +92,21 @@
     border-radius: 5px;
   }
 
+  input[type="submit"] {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    border-radius: 5px;
+    padding: 20px 30px;
+    cursor: pointer;
+  }
+
   label.checkbox {
     position: relative;
     display: block;
     padding-left: 40px;
     cursor: pointer;
+    border-radius: 5px;
   }
 
   label.checkbox::after {
@@ -102,6 +115,7 @@
     top: 0; left: 0;
     font-size: 26px;
     font-family: FontAwesome;
+    color: #c4e695;
   }
 
   label.checkbox.checked::after {
@@ -109,7 +123,7 @@
     position: absolute;
     top: 0; left: 0;
     font-family: FontAwesome;
-    color: red;
+    color: #1c5a29;
   }
 
   input[type="checkbox"] {
@@ -146,28 +160,8 @@
 
   .signin-heading {
     margin: 80px;
-    font-size: 4em;
-  }
-
-  .topic-container {
-    margin: 50px;
-    display: block;
-    position: relative;
-  }
-
-  .topic {
-    width: 30%;
-    border-radius: 10px;
-    border: 1px dashed #bcbcbc;
-    padding: 10px;
-  }
-
-  .field {
-    margin: 60px;
-    display: block;
-    position: relative;
-    font-size: 1.5em;
-    line-height: 22px;
+    margin-top: 10%;
+    font-size: 5em;
   }
 
   .text-field-wrapper {
@@ -184,14 +178,18 @@
     width: 500px;
   }
 
-  .text-field > {
-
-  }
-
   .text-field > input {
     font-size: inherit;
     width: 100%;
+    box-shadow: 1px 1px 4px 1px #c4e695;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+
+  .text-field-clear {
+    position: absolute;
+    top: 5px; right: 5px;
+    font-size: 2em;
   }
 
   .numpad {
@@ -207,19 +205,68 @@
   }
 
   .numcell {
-    margin: 0.5%;
+    margin: 5px;
     display: inline-block;
-    width: 8%;
-    padding: 3% 0;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
     background: #5c5b5e;
-    transition: all 0.1s ease-in;
     cursor: pointer;
     border-radius: 5px;
     box-sizing: border-box;
   }
 
   .numcell.double {
-    width: 18%;
+    width: 220px;
+    background-color: #1c5a29;
+  }
+
+  .vote {
+    margin: 20px;
+  }
+
+  .field {
+    position: relative;
+  }
+
+  .category {
+    font-size: 2.5em;
+  }
+
+  .topic-container {
+    width: 100%;
+    text-align: center
+  }
+
+  .topic {
+    display: inline-block;
+    width: 30%;
+    padding-left: 10%;
+    text-align: left;
+    font-size: 1.2em;
+    line-height: 1.3em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+
+  .topic > h3 {
+    position: relative;
+    left: -5%;
+  }
+
+  .actions {
+    position: absolute;
+    left: 0; right: 0;
+    font-size: 1.4em;
+    display: inline-block;
+    margin: 40px auto;
+    margin-top: 100px;
+    text-align: center
+  }
+
+  .actions > input {
+    background-color: #1c5a29;
+    color: white;
   }
 
   ::-webkit-scrollbar {
@@ -238,17 +285,14 @@
     100% {bottom: 20px;}
   }
 
-  .category {
-    font-size: 50px;
-  }
-
   @media all and (max-width: 768px) {
-    .logo {
+    .header-logo {
       width: 100%;
     }
 
-    .heading {
-      font-size: 1.2em;
+    .signin-heading {
+      margin-top: 50%;
+      font-size: 2em;
     }
 
     .text-field {
@@ -260,6 +304,11 @@
 
     .numpad {
       display: none;
+    }
+
+    .topic {
+      width: 100%;
+      font-size: 1.2em;
     }
   }
 </style>
@@ -291,7 +340,7 @@
       var number = $(this).html().trim();
 
       if (number == "Next") {
-        $('html, body').animate({ scrollTop: $(window).height() * 2}, '200');
+        $('html, body').animate({ scrollTop: $(window).height() * 2 + 100}, '200');
       } else {
         $('#vote_student_id').val( function(index, val) {
           return val + number;
@@ -299,7 +348,7 @@
       }
     });
 
-    $(".numclear").click(function () {
+    $(".text-field-clear").click(function () {
       $("#vote_student_id").val("");
     });
 
@@ -312,9 +361,5 @@
     $(".checkbox").each(function() {
       $(this).toggleClass('checked', $(this).find('input').prop('checked'));
     })
-
-    $(window).resize(function () {
-      setWrapperSize();
-    });
   });
 </script>

@@ -21,7 +21,7 @@
       <tr>
         <td colspan="5">
 
-          <% if @on_show %>
+          <% on_show=true; if @on_show %>
 
           <% Project.where(category_id: topic.category.id)
    .map { |project| [project, VoteItem.where(topic: topic, project: project).count] }

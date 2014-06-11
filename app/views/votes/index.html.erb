@@ -3,23 +3,48 @@
 <table>
   <thead>
     <tr>
-      <th>Student</th>
+      <th>Name</th>
+      <th>Total Vote</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
+    <% all_votes = 0 %>
     <% @votes.each do |vote| %>
       <tr>
         <td><%= vote.student_id %></td>
+        <% all_votes += vote.vote_items.count %>
+        <td><%= vote.vote_items.count %></td>
         <td><%= link_to 'Show', vote %></td>
         <td><%= link_to 'Edit', edit_vote_path(vote) %></td>
         <td><%= link_to 'Destroy', vote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+      <tr>
+        <td>
+          <hh>
+            TOTAL
+          </hh>
+        </td>
+        <td>
+          <hh>
+            <%= all_votes %>
+          </hh>
+        </td>
+      </tr>
+    </hh>
   </tbody>
 </table>
 
 <br>
 
 <%= link_to 'New Vote', new_vote_path %>
+
+<style>
+  hh {
+    color: red;
+    background-color: #e5e5e5;
+    font-size: 30px;
+  }
+</style>
