@@ -4,7 +4,10 @@
 <div class='logo-container'>
   <img class='logo' src="logo.jpg">
   <div class='heading'>
-    <img src='/images/next.png'>
+    <span class="fa-stack next">
+      <i class="fa fa-circle-thin fa-stack-2x"></i>
+      <i class="fa fa-chevron-down fa-stack-1x"></i>
+    </span>
     <h1>Exceed Vote</h1>
   </div>
 </div>
@@ -20,10 +23,29 @@
       </ul>
     </div>
   <% end %>
+  <div class="wrapper">
+    <div class="text-field">
+    <%= f.text_field :student_id, :placeholder => "Student ID", :auto_complete => false %>
+      <i class="numclear fa fa-times-circle"></i>
+    </div>
+
+    <div class="numpad">
+      <div class="numcell"> 1 </div>
+      <div class="numcell"> 2 </div>
+      <div class="numcell"> 3 </div><br>
+      <div class="numcell"> 4 </div>
+      <div class="numcell"> 5 </div>
+      <div class="numcell"> 6 </div><br>
+      <div class="numcell"> 7 </div>
+      <div class="numcell"> 8 </div>
+      <div class="numcell"> 9 </div><br>
+      <div class="numcell"> 0 </div>
+      <div class="numcell double"> Next </div>
+    </div>
+  </div>
 
   <div class="wrapper">
     <div class="field">
-      <%= f.text_field :student_id, :placeholder => "Student ID", :class => "text-field", :auto_complete => false %>
       <% Category.all.each do |category| %>
         <h2><%= category.name %> </h2>
         <div class="topic-container">
@@ -44,19 +66,9 @@
     </div>
   </div>
 
-  <div class="numpad">
-    <div class="numcell"> 0 </div>
-    <div class="numcell"> 1 </div>
-    <div class="numcell"> 2 </div>
-    <div class="numcell"> 3 </div>
-    <div class="numcell"> 4 </div>
-    <div class="numcell"> 5 </div>
-    <div class="numcell"> 6 </div>
-    <div class="numcell"> 7 </div>
-    <div class="numcell"> 8 </div>
-    <div class="numcell"> 9 </div>
-    <div class="numcell"> C </div>\
-  </div>
+
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 <% end %>
@@ -67,7 +79,7 @@
     color: #1c5a29;
     font-family: 'Oxygen', sans-serif;
     margin: 0px;
-    overflow-style: none;
+    -ms-overflow-style: none;
   }
 
   h1 {
@@ -79,7 +91,6 @@
     border: none;
     padding: 7px 15px;
     border-radius: 5px;
-
   }
 
   .logo-container {
@@ -102,7 +113,7 @@
     font-size: 1.6em;
   }
 
-  .heading > img {
+  .heading > .next {
     cursor: pointer;
     width: 50px;
     -webkit-animation: myfirst 1s infinite ease; /* Chrome, Safari, Opera */
@@ -128,6 +139,7 @@
   .wrapper {
     position: relative;
     width: 100%;
+    text-align: center;
   }
 
   .field {
@@ -137,23 +149,50 @@
   }
 
   .text-field {
+    position: relative;
     display: block;
     width: 500px;
-    margin: 100px auto;
+    margin: 60px auto;
     font-size: 1.5em;
   }
 
-  .numpad {
-    display: none;
-    background-color: red;
-    width: 100px;
+  .text-field > input {
+    width: 100%;
+    font-size: inherit;
+  }
 
+  .numpad {
+    color: white;
+    display: inline-block;
+    background: #c4e695;
+    margin: auto;
+    text-align: center;
+    padding: 20px 0px;
+    width: 100%;
+    margin-bottom: 80px;
   }
 
   .numcell {
+    margin: 4px;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 120px;
+    height: 120px;
+    background: #5c5b5e;
+    line-height: 120px;
+    font-size: 3.2em;
+    transition: all 0.1s ease-in;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .numclear {
+    position: absolute;
+    top: 6px; right: -20px;
+    font-size: 1.8em;
+  }
+
+  .numcell.double {
+    width: 250px;
   }
 
   ::-webkit-scrollbar {
@@ -163,14 +202,14 @@
   /* Chrome, Safari, Opera */
   @-webkit-keyframes myfirst {
     0% {top: 0px;}
-    50% {top: 10px;}
+    50% {top: 6px;}
     100% {top: 0px;}
   }
 
   /* Standard syntax */
   @keyframes myfirst {
     0% {top: 0px;}
-    50% {top: 10px;}
+    50% {top: 6px;}
     100% {top: 0px;}
   }
 </style>
@@ -182,32 +221,46 @@
     $('.logo-container').height($(window).height()); 
   }
 
+  $(document.body).on('touchstart', function (e) {
+    return false;
+  });
+
+  $(document.body).on('touchend', function (e) {
+    return false;
+  });
+
   $(document).ready(function () {
+
+    FastClick.attach(document.body);
+
     setLogoContainerSize();
 
-    $('#vote_student_id').focus(function () { 
-      // alert();
-      $(".numpad").slideDown();
-
-    });
-
     $('.logo-container').click(function () {
-      $('html, body').animate({ scrollTop: $(window).height() }, '200');
-    });
-
-    $('.logo-container').on("touchstart", function () {
-      $('html, body').animate({ scrollTop: $(window).height() }, '200');
-      // alert("dfvfdv");
+      $('html, body').animate({ scrollTop: $(window).height() - 230}, '200');
     });
 
     $(".numcell").click(function () {
+      var x = $(this);
+      x.css("color", "#c4e695");
+
+      setTimeout(function () {
+        x.css("color", "");
+      }, 200);
+
       var number = $(this).html().trim();
-      $('#vote_student_id').val( function(index, val) {
-        return val + number;
-      });
+
+      if (number == "Next") {
+        $('html, body').animate({ scrollTop: $(window).height() + 730}, '200');
+      } else {
+        $('#vote_student_id').val( function(index, val) {
+          return val + number;
+        });  
+      }
     });
 
-
+    $(".numclear").click(function () {
+      $("#vote_student_id").val("");
+    });
   });
 
   $(window).resize(function () {
