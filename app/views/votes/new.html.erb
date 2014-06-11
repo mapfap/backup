@@ -1,9 +1,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
-<div class='logo-container'>
-  <img class='logo' src="logo.jpg">
-  <span class="next fa-stack">
+<div class='wrapper header'>
+  <img class='header-logo' src="logo.jpg">
+  <span class="header-next fa-stack">
     <i class="fa fa-circle-thin fa-stack-2x"></i>
     <i class="fa fa-chevron-down fa-stack-1x"></i>
   </span>
@@ -20,8 +20,8 @@
       </ul>
     </div>
   <% end %>
-  <h1>Exceed Vote</h1>
-  <div class="wrapper text-center">
+  <div class="wrapper signin">
+    <h1 class='signin-heading'>eXceed Vote</h1>
     <div class='text-field-wrapper'>
       <div class="text-field">
         <%= f.text_field :student_id, :placeholder => "Student ID", autocomplete:  false %>
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="wrapper">
+  <div class="wrapper vote">
     <div class="field">
       <% Category.all.each do |category| %>
         <h1 class="category"><%= category.name %> </h1>
@@ -67,10 +67,6 @@
       </div>
     </div>
   </div>
-
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
 <% end %>
 
 <style>
@@ -121,25 +117,36 @@
     left: -9999px;
   }
 
-  .logo-container {
+  .wrapper {
     position: relative;
   }
 
-  .logo {
+  .header {}
+
+  .header-logo {
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;
     width: 80%;
     margin: auto;
   }
 
-  .next {
+  .header-next {
     position: absolute;
-    width: 100%;
+    left: 0; right: 0; bottom: 20px;
     display: inline-block;
-    bottom: 20px;
+    margin: auto;
     font-size: 2em;
     -webkit-animation: down 1s infinite ease;
-    animation: down 1s infinite ease;
+            animation: down 1s infinite ease;
+  }
+
+  .signin {
+    text-align: center;
+  }
+
+  .signin-heading {
+    margin: 80px;
+    font-size: 4em;
   }
 
   .topic-container {
@@ -150,20 +157,9 @@
 
   .topic {
     width: 30%;
-    /*background: rgba(255, 255, 255, 0.5);*/
-    display: inline-block;
     border-radius: 10px;
     border: 1px dashed #bcbcbc;
     padding: 10px;
-  }
-
-  .wrapper {
-    position: relative;
-    width: 100%;
-  }
-
-  .text-center {
-    text-align: center;
   }
 
   .field {
@@ -186,6 +182,10 @@
     display: inline-block;
     font-size: 1.2em;
     width: 500px;
+  }
+
+  .text-field > {
+
   }
 
   .text-field > input {
@@ -216,12 +216,6 @@
     cursor: pointer;
     border-radius: 5px;
     box-sizing: border-box;
-  }
-
-  .numclear {
-    position: absolute;
-    top: 9px; right: 5px;
-    font-size: 1.8em;
   }
 
   .numcell.double {
@@ -268,23 +262,21 @@
       display: none;
     }
   }
-
 </style>
 
-<script src="js/bootstrap.min.js"></script>
 <script>
-  function setLogoContainerSize() {
-    $('.logo-container').width($(window).width());
-    $('.logo-container').height($(window).height()); 
+  function setWrapperSize() {
+    $('.wrapper').width($(window).width());
+    $('.wrapper').height($(window).height()); 
   }
 
   $(document).ready(function () {
 
     FastClick.attach(document.body);
 
-    setLogoContainerSize();
+    setWrapperSize();
 
-    $('.logo-container').click(function () {
+    $('.header').click(function () {
       $('html, body').animate({ scrollTop: $(window).height()}, '200');
     });
 
@@ -322,7 +314,7 @@
     })
 
     $(window).resize(function () {
-      setLogoContainerSize();
+      setWrapperSize();
     });
   });
 </script>

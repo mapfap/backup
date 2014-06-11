@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :show, :create]
 
   # GET /votes
   # GET /votes.json
@@ -25,13 +25,15 @@ class VotesController < ApplicationController
   # POST /votes
   # POST /votes.json
   def create
+    2000.times{ puts "||        kuy       ||" }
     # return render json: params
     @vote = Vote.new(vote_params)
     # unless Topic.all.all? { |topic| params[:v].include? topic.id.to_s }
     #   render text: 'Please select all'
     #   return
     # end
-    respond_to do |format|
+
+    #respond_to do |format|
       if @vote.save
         # puts "---------------------------------------"
         # puts "---------------------------------------"
@@ -49,7 +51,15 @@ class VotesController < ApplicationController
         # puts "---------------------------------------"
         # puts "---------------------------------------"
 
+
         pv = params[:v]
+        if pv.nil?
+          redirect_to root_path, notice: 'Vote was successfully created.'
+          return
+        end
+
+
+
         pv.each do |k, v|
           project_id = k
           pv[k].each do |topic_id|
@@ -57,18 +67,20 @@ class VotesController < ApplicationController
             VoteItem.create(topic_id: topic_id, vote_id: vote_id, project_id: project_id.to_i)
           end
         end
+       
         # p v
         # puts "---------------------------------------"
         # puts "---------------------------------------"
 
 
-
-        format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
+        #format.html { redirect_to root, notice: 'Vote was successfully created.' }
+        redirect_to root_path, notice: 'Vote was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @vote.errors, status: :unprocessable_entity }
+        render :new
+        # format.html { render :new }
+        # format.json { render json: @vote.errors, status: :unprocessable_entity }
       end
-    end
+    #end
   end
 
   # PATCH/PUT /votes/1
