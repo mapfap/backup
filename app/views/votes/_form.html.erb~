@@ -1,10 +1,8 @@
-
-<div class='logo-container'><img class='logo' src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xpf1/t31.0-8/903304_10152396451959185_7314279930237098716_o.jpg" ></div>
-
 <%= form_for(@vote) do |f| %>
   <% if @vote.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+
       <ul>
       <% @vote.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -12,13 +10,16 @@
       </ul>
     </div>
   <% end %>
-
+fff
   <div class="field">
     Student ID<br>
     <%= f.text_field :student_id %>
+
     <% Category.all.each do |category| %>
     <hr>
+
       <h2><%= category.name %> </h2>
+
       <% category.topics.each do |topic |%>
         <div class="topic">
         <h3><%= topic.name %></h3>
@@ -28,9 +29,11 @@
         <% end %>
         </div>
       <% end %>
-    <% end %>
-  </div>
 
+
+    <% end %>
+
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -46,27 +49,6 @@
   }
 
   body {
-    background: rgb(211, 249, 166);
+    /*background: #0a2f08;*/
   }
 </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script>
-  function setLogoContainerSize() {
-    $('.logo-container').width($(window).width());
-    $('.logo-container').height($(window).height()); 
-  }
-
-  $(document).ready(function () {
-    setLogoContainerSize();
-    $('.logo').click(function () {
-      $('html, body').animate({ scrollTop: $(window).height() }, '200');
-    });
-  });
-
-  $(window).resize(function () {
-    setLogoContainerSize();
-  });
-
-</script>

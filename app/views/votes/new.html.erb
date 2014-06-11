@@ -1,2 +1,146 @@
-<h1>Exceed Vote</h1>
-<%= render 'form' %>
+<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+<div class='logo-container'>
+  <img class='logo' src="logo.jpg">
+  <div class='heading'>
+    <img src='/images/next.png'>
+    <h1>Exceed Vote</h1>
+  </div>
+</div>
+
+<%= form_for(@vote) do |f| %>
+  <% if @vote.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
+      <ul>
+      <% @vote.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :student_id, :placeholder => "Student ID", :class => "text-field", :auto_complete => false %>
+    <% Category.all.each do |category| %>
+      <h2><%= category.name %> </h2>
+      <% category.topics.each do |topic |%>
+        <div class="topic">
+          <h3><%= topic.name %></h3>
+          <% category.projects.each do |project|%>
+            <label><input name="v[<%= topic.id %>]" value="<%= project.id %>" type="radio"> <%= project.name %></label>
+            <br>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+
+
+<% end %>
+
+<style>
+  body {
+    background: rgb(211, 249, 166);
+    color: #1c5a29;
+    font-family: 'Oxygen', sans-serif;
+  }
+
+  h1 {
+    font-weight: normal;
+  }
+
+  input[type="text"] {
+    font-family: inherit;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 5px;
+
+  }
+
+  .logo-container {
+    position: relative;
+    text-align: center;
+  }
+
+  .logo {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 80%;
+    margin: auto;
+  }
+
+  .heading {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.6em;
+  }
+
+  .heading > img {
+    cursor: pointer;
+    width: 50px;
+    -webkit-animation: myfirst 1s infinite ease; /* Chrome, Safari, Opera */
+    animation: myfirst 1s infinite ease;
+    position: relative;
+  }
+
+  .topic {
+    /*background: #2eeb29;*/
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px dashed #bcbcbc;
+    padding: 10px;
+  }
+
+  .field {
+    padding: 20px;
+    position: relative;
+    width: 100%;
+  }
+
+  .text-field {
+    display: block;
+    width: 500px;
+    margin: 100px auto;
+    font-size: 1.5em;
+  }
+
+  /* Chrome, Safari, Opera */
+  @-webkit-keyframes myfirst {
+    0% {top: 0px;}
+    50% {top: 10px;}
+    100% {top: 0px;}
+  }
+
+  /* Standard syntax */
+  @keyframes myfirst {
+    0% {top: 0px;}
+    50% {top: 10px;}
+    100% {top: 0px;}
+  }
+</style>
+
+<script src="js/bootstrap.min.js"></script>
+<script>
+  function setLogoContainerSize() {
+    $('.logo-container').width($(window).width());
+    $('.logo-container').height($(window).height()); 
+  }
+
+  $(document).ready(function () {
+    setLogoContainerSize();
+    $('.logo-container').click(function () {
+      $('html, body').animate({ scrollTop: $(window).height() }, '200');
+    });
+  });
+
+  $(window).resize(function () {
+    setLogoContainerSize();
+  });
+
+</script>
