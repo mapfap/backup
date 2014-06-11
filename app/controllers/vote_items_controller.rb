@@ -1,5 +1,6 @@
 class VoteItemsController < ApplicationController
   before_action :set_vote_item, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /vote_items
   # GET /vote_items.json

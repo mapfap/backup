@@ -1,5 +1,6 @@
 class VotesController < ApplicationController
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:new]
 
   # GET /votes
   # GET /votes.json
@@ -63,7 +64,6 @@ class VotesController < ApplicationController
 
 
         format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
-        format.json { render :show, status: :created, location: @vote }
       else
         format.html { render :new }
         format.json { render json: @vote.errors, status: :unprocessable_entity }
